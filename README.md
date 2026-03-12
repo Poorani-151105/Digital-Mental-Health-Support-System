@@ -25,20 +25,18 @@ This project is developed using **Python Flask**.
    * SQLite Database
 
 ##  Technologies Used
-
-• Python
-• Flask
-• HTML
-• CSS
-• JavaScript
-• SQLite
-• Chart.js
+   * Python
+   * Flask
+   * HTML
+   * CSS
+   * JavaScript
+   * SQLite
+   * Chart.js
 
 
 ## Project Structure
 
 Digital-Mental-Health-Support-System
-
 app.py
 templates/
 static/
@@ -48,17 +46,11 @@ README.md
 
 1. Install Python
 2. Install Flask
-
-pip install flask
-
+   pip install flask
 3. Run project
-
-python app.py
-
+   python app.py
 4. Open browser
-
-http://127.0.0.1:5000
-
+   http://127.0.0.1:5000
 
 ##  Purpose
 This project helps students understand their stress level and learn ways to reduce stress.
