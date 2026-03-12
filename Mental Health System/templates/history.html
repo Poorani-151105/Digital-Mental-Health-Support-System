@@ -1,0 +1,19 @@
+<h1>Your Previous Stress Results</h1>
+
+<table border="1">
+
+<tr>
+<th>Score</th>
+<th>Stress Level</th>
+</tr>
+
+{% for row in results %}
+
+<tr>
+<td>{{ row[0] }}</td>
+<td>{{ row[1] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
