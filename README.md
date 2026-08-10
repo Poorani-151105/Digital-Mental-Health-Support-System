@@ -1,4 +1,4 @@
-##  Digital Mental Health Support System :
+##  Digital Mental Health Monitoring System :
   A web application that helps students check their stress level and get mental health support.
 
 ##  Project Description:
