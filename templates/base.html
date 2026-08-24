@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Student Wellness{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-shell">
+        <nav class="sidebar">
+            <div class="logo">Student Wellness</div>
+
+            <a href="{{ url_for('dashboard') }}" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="{{ url_for('quiz') }}" class="nav-link {% if active_page == 'quiz' %}active{% endif %}">
+                <i data-lucide="clipboard-check"></i> Stress Test
+            </a>
+            <a href="{{ url_for('tips') }}" class="nav-link {% if active_page == 'tips' %}active{% endif %}">
+                <i data-lucide="lightbulb"></i> Stress Control Tips
+            </a>
+            <a href="{{ url_for('feedback') }}" class="nav-link {% if active_page == 'feedback' %}active{% endif %}">
+                <i data-lucide="message-square"></i> Feedback
+            </a>
+
+            <div class="sidebar-footer">
+                <div class="user-chip">
+                    <div class="user-avatar"><i data-lucide="user"></i></div>
+                    <div>
+                        <div class="user-name">{{ session['user'] }}</div>
+                        <div class="user-role">Student</div>
+                    </div>
+                </div>
+                <a href="{{ url_for('logout') }}" class="logout-link">
+                    <i data-lucide="log-out"></i> Logout
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <script>lucide.createIcons();</script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

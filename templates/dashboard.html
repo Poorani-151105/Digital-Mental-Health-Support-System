@@ -1,9 +1,60 @@
-<h1>Student Dashboard</h1>
+{% extends "base.html" %}
+{% block title %}Dashboard - Student Wellness{% endblock %}
+{% block content %}
 
-<a href="/quiz"><button>Take Stress Test</button></a>
+<div class="page-header">
+    <div>
+        <h1>Welcome back, {{ user }}! 👋</h1>
+        <p class="subtitle">How are you feeling today? Let's check in on your mental wellness.</p>
+    </div>
+    <a href="{{ url_for('quiz') }}" class="btn-grad-inline">
+        Start Stress Assessment <i data-lucide="arrow-right"></i>
+    </a>
+</div>
 
-<a href="/history"><button>View Result History</button></a>
+<div class="stat-grid">
+    <div class="stat-box">
+        <div class="stat-icon tone-indigo"><i data-lucide="trending-up"></i></div>
+        <div>
+            <p class="stat-label">Latest Score</p>
+            <h2 class="stat-value">{{ last_test.score if last_test else 'N/A' }}</h2>
+        </div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-icon tone-purple"><i data-lucide="alert-circle"></i></div>
+        <div>
+            <p class="stat-label">Stress Level</p>
+            <h2 class="stat-value">{{ last_test.level if last_test else 'No Data' }}</h2>
+        </div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-icon tone-pink"><i data-lucide="history"></i></div>
+        <div>
+            <p class="stat-label">Tests Taken</p>
+            <h2 class="stat-value">{{ count }}</h2>
+        </div>
+    </div>
+</div>
 
-<a href="/chart"><button>View Stress Graph</button></a>
+<div class="action-grid">
+    <div class="action-card tone-indigo">
+        <div class="action-icon"><i data-lucide="clipboard-check"></i></div>
+        <h3>Start Assessment</h3>
+        <p>Take a quick 10-question test to evaluate your current stress levels.</p>
+        <a href="{{ url_for('quiz') }}" class="btn-soft" style="display:block; text-align:center;">Start Test</a>
+    </div>
+    <div class="action-card tone-purple">
+        <div class="action-icon"><i data-lucide="lightbulb"></i></div>
+        <h3>Management Tips</h3>
+        <p>Discover personalized techniques to manage and reduce your stress.</p>
+        <a href="{{ url_for('tips') }}" class="btn-soft" style="display:block; text-align:center;">View Tips</a>
+    </div>
+    <div class="action-card tone-pink">
+        <div class="action-icon"><i data-lucide="message-square"></i></div>
+        <h3>Share Feedback</h3>
+        <p>Help us improve by sharing your experience with the system.</p>
+        <a href="{{ url_for('feedback') }}" class="btn-soft" style="display:block; text-align:center;">Give Feedback</a>
+    </div>
+</div>
 
-<a href="/feedback"><button>Give Feedback</button></a>
+{% endblock %}

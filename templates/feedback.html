@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Feedback</title>
-</head>
+{% extends "base.html" %}
+{% block title %}Feedback - Student Wellness{% endblock %}
+{% block content %}
 
-<body>
+<div style="text-align: center; margin-bottom: 32px;">
+    <h1>Your Feedback Matters</h1>
+    <p class="subtitle">Help us improve the Student Wellness experience.</p>
+</div>
 
-<h1>Student Feedback</h1>
+<div class="feedback-card">
+    {% if submitted %}
+    <div class="flash-msg">Thanks! Your feedback has been recorded.</div>
+    {% endif %}
+    <form action="{{ url_for('feedback') }}" method="POST">
+        <input type="number" name="rating" min="1" max="5" placeholder="Rating (1-5)" required>
+        <textarea name="message" placeholder="Your message"></textarea>
+        <button type="submit" class="btn-grad">Submit Feedback</button>
+    </form>
+</div>
 
-<form action="/save_feedback" method="post">
-
-<textarea name="feedback" rows="5" cols="40"
-placeholder="Write your feedback here"></textarea>
-
-<br><br>
-
-<button type="submit">Submit Feedback</button>
-
-</form>
-
-</body>
-</html>
+{% endblock %}

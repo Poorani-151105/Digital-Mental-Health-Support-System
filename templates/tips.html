@@ -1,30 +1,81 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+{% block title %}Stress Control Tips - Student Wellness{% endblock %}
+{% block content %}
 
-<head>
-<title>Mental Health Tips</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>Mental Health Tips</h2>
-
-<ul>
-<li>Take regular breaks from study</li>
-<li>Exercise daily</li>
-<li>Sleep at least 7 hours</li>
-<li>Talk to friends or family</li>
-<li>Practice meditation</li>
-</ul>
-
-<br>
-
-<a href="/">Go Home</a>
-
+<div class="section-title">
+    <h1>Stress Management Tips</h1>
+    <p>Personalized strategies to help you navigate academic pressure and maintain mental wellness.</p>
 </div>
 
-</body>
-</html>
+<div class="tips-grid">
+    <div class="tip-card low">
+        <div class="tip-card-header"><h2>Low Stress Tips</h2></div>
+        <div class="tip-card-body">
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="moon"></i></div>
+                <p>Maintain a regular sleep schedule (7-9 hours).</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="heart"></i></div>
+                <p>Continue regular physical activity or sports.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="check-circle"></i></div>
+                <p>Keep up your healthy eating and hydration habits.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="coffee"></i></div>
+                <p>Balance study time with hobbies you enjoy.</p>
+            </div>
+        </div>
+        <div class="tip-card-footer">Recommended for scores 0-10</div>
+    </div>
+
+    <div class="tip-card moderate">
+        <div class="tip-card-header"><h2>Moderate Stress Tips</h2></div>
+        <div class="tip-card-body">
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="wind"></i></div>
+                <p>Practice deep breathing exercises for 5 minutes daily.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="brain"></i></div>
+                <p>Use time management tools like the Pomodoro technique.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="coffee"></i></div>
+                <p>Take short, frequent study breaks to refresh your mind.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="music"></i></div>
+                <p>Listen to calming music while studying or relaxing.</p>
+            </div>
+        </div>
+        <div class="tip-card-footer">Recommended for scores 11-20</div>
+    </div>
+
+    <div class="tip-card high">
+        <div class="tip-card-header"><h2>High Stress Tips</h2></div>
+        <div class="tip-card-body">
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="brain"></i></div>
+                <p>Try guided meditation or mindfulness apps.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="users"></i></div>
+                <p>Talk to friends, family, or a trusted mentor about your feelings.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="heart"></i></div>
+                <p>Reach out to university counseling or support services.</p>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i data-lucide="wind"></i></div>
+                <p>Prioritize relaxation techniques like progressive muscle relaxation.</p>
+            </div>
+        </div>
+        <div class="tip-card-footer">Recommended for scores 21-30</div>
+    </div>
+</div>
+
+{% endblock %}

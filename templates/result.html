@@ -1,30 +1,16 @@
-<h2>{{ level }}</h2>
+{% extends "base.html" %}
+{% block title %}Result - Student Wellness{% endblock %}
+{% block content %}
 
-<p>{{ description }}</p>
+<div class="result-wrap">
+    <div class="result-card">
+        <h1 class="level-tag">{{ level }}</h1>
+        <p class="score-label">Total Score</p>
+        <h2 class="score-value">{{ score }} / 30</h2>
+        <a href="{{ url_for('tips') }}" class="btn-grad-inline" style="width:100%; justify-content:center;">
+            View Management Tips <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+</div>
 
-<h3>How to Reduce Stress</h3>
-
-<ul>
-
-{% if level == "Low Stress" %}
-<li>Maintain your healthy routine</li>
-<li>Exercise regularly</li>
-<li>Continue positive habits</li>
-{% endif %}
-
-{% if level == "Moderate Stress" %}
-<li>Practice meditation</li>
-<li>Take short study breaks</li>
-<li>Sleep at least 7 hours</li>
-<li>Talk with friends</li>
-{% endif %}
-
-{% if level == "High Stress" %}
-<li>Talk with a counselor</li>
-<li>Reduce workload</li>
-<li>Practice deep breathing</li>
-<li>Spend time on hobbies</li>
-<li>Seek professional help if needed</li>
-{% endif %}
-
-</ul>
+{% endblock %}

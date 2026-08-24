@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Student Wellness</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="auth-page">
+    <div class="login-card">
+        <h1>Create Account</h1>
+        <p class="subtitle">Sign up for your student wellness account</p>
+
+        {% if error %}
+        <p class="auth-error">{{ error }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('register') }}" method="POST" autocomplete="off">
+            <input type="text" name="fakeusernameremembered" style="position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+            <input type="password" name="fakepasswordremembered" style="position:absolute; left:-9999px;" tabindex="-1" autocomplete="off">
+
+            <div class="field-group">
+                <label for="name">Full Name</label>
+                <div class="input-wrap">
+                    <i data-lucide="user"></i>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" autocomplete="off" required>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label for="password">Password</label>
+                <div class="input-wrap">
+                    <i data-lucide="lock"></i>
+                    <input type="password" id="password" name="password" placeholder="Choose a password" autocomplete="new-password" required>
+                    <button type="button" class="toggle-eye" id="togglePassword">
+                        <i data-lucide="eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-grad">
+                Create Account <i data-lucide="user-plus"></i>
+            </button>
+        </form>
+
+        <p class="subtitle auth-switch">Already have an account? <a href="{{ url_for('home') }}">Sign in here</a></p>
+    </div>
+    <script>
+        lucide.createIcons();
+
+        window.addEventListener('load', () => {
+            document.getElementById('name').value = '';
+            document.getElementById('password').value = '';
+        });
+
+        const pw = document.getElementById('password');
+        const toggle = document.getElementById('togglePassword');
+        toggle.addEventListener('click', () => {
+            const show = pw.type === 'password';
+            pw.type = show ? 'text' : 'password';
+            toggle.innerHTML = show ? '<i data-lucide="eye-off"></i>' : '<i data-lucide="eye"></i>';
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

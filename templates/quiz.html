@@ -1,90 +1,110 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Stress Test</title>
-</head>
+{% extends "base.html" %}
+{% block title %}Stress Assessment - Student Wellness{% endblock %}
+{% block content %}
 
-<body>
+<h1>Stress Assessment</h1>
+<p class="subtitle" style="margin-bottom: 32px;">Answer these 10 questions honestly to understand your current stress levels.</p>
 
-<h1>Student Stress Assessment</h1>
+<div class="quiz-progress-row">
+    <span class="q-count" id="qCountLabel">Question 1 of 10</span>
+    <span class="q-pct" id="qPctLabel">0% Complete</span>
+</div>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 
-<form action="/result" method="post">
+<form action="{{ url_for('submit_quiz') }}" method="POST" id="quizForm">
+    <div class="quiz-card">
+        <h2 id="questionText">Do you feel overwhelmed with academic work?</h2>
 
-<p>1. Do you feel overwhelmed with studies?</p>
-<select name="q1">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
+        <div class="option-grid">
+            <label>
+                <input type="radio" name="current_q" value="1" required>
+                <div class="option-box">Never</div>
+            </label>
+            <label>
+                <input type="radio" name="current_q" value="2">
+                <div class="option-box">Sometimes</div>
+            </label>
+            <label>
+                <input type="radio" name="current_q" value="3">
+                <div class="option-box">Often</div>
+            </label>
+            <label>
+                <input type="radio" name="current_q" value="4">
+                <div class="option-box">Always</div>
+            </label>
+        </div>
 
-<p>2. Do you feel anxious before exams?</p>
-<select name="q2">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
+        <div id="hiddenInputs"></div>
 
-<p>3. Do you have trouble sleeping?</p>
-<select name="q3">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<p>4. Do you feel tired most of the time?</p>
-<select name="q4">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<p>5. Do you feel pressure from deadlines?</p>
-<select name="q5">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<p>6. Do you find it difficult to concentrate?</p>
-<select name="q6">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<p>7. Do you feel nervous frequently?</p>
-<select name="q7">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<p>8. Do you feel frustrated easily?</p>
-<select name="q8">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<p>9. Do you feel lonely?</p>
-<select name="q9">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<p>10. Do you feel worried about the future?</p>
-<select name="q10">
-<option value="1">Never</option>
-<option value="2">Sometimes</option>
-<option value="3">Often</option>
-</select>
-
-<br><br>
-
-<button type="submit">Submit Test</button>
-
+        <div class="quiz-nav-row">
+            <button type="button" id="nextBtn" class="btn-grad-inline" disabled>Next <i data-lucide="arrow-right"></i></button>
+        </div>
+    </div>
 </form>
 
-</body>
-</html>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const questions = [
+        "Do you feel overwhelmed with academic work?",
+        "How often do you have trouble sleeping due to worry?",
+        "Do you feel isolated or lonely at university?",
+        "How often do you find it difficult to concentrate?",
+        "Do you feel physically exhausted even without much activity?",
+        "How often do you lose your temper easily?",
+        "Do you worry about your future career constantly?",
+        "How often do you skip meals because of stress?",
+        "Do you feel your workload is unmanageable?",
+        "How often do you feel nervous or anxious?"
+    ];
+
+    let currentIdx = 0;
+    const answers = [];
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateProgress() {
+        document.getElementById('qCountLabel').innerText = `Question ${currentIdx + 1} of ${questions.length}`;
+        const pct = Math.round((currentIdx / questions.length) * 100);
+        document.getElementById('qPctLabel').innerText = `${pct}% Complete`;
+        document.getElementById('progressFill').style.width = pct + '%';
+    }
+
+    document.querySelectorAll('input[name="current_q"]').forEach(radio => {
+        radio.addEventListener('change', () => { nextBtn.disabled = false; });
+    });
+
+    nextBtn.onclick = function () {
+        const selected = document.querySelector('input[name="current_q"]:checked');
+        if (!selected) return;
+
+        answers.push(selected.value);
+        selected.checked = false;
+        currentIdx++;
+        nextBtn.disabled = true;
+
+        if (currentIdx < questions.length) {
+            document.getElementById('questionText').innerText = questions[currentIdx];
+            updateProgress();
+            if (currentIdx === questions.length - 1) {
+                nextBtn.innerHTML = 'Submit Assessment <i data-lucide="check"></i>';
+                lucide.createIcons();
+            }
+        } else {
+            document.getElementById('qPctLabel').innerText = '100% Complete';
+            document.getElementById('progressFill').style.width = '100%';
+            const container = document.getElementById('hiddenInputs');
+            answers.forEach((val, i) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = `q${i + 1}`;
+                input.value = val;
+                container.appendChild(input);
+            });
+            document.getElementById('quizForm').submit();
+        }
+    };
+
+    updateProgress();
+</script>
+{% endblock %}
