@@ -1,0 +1,30 @@
+<h2>{{ level }}</h2>
+
+<p>{{ description }}</p>
+
+<h3>How to Reduce Stress</h3>
+
+<ul>
+
+{% if level == "Low Stress" %}
+<li>Maintain your healthy routine</li>
+<li>Exercise regularly</li>
+<li>Continue positive habits</li>
+{% endif %}
+
+{% if level == "Moderate Stress" %}
+<li>Practice meditation</li>
+<li>Take short study breaks</li>
+<li>Sleep at least 7 hours</li>
+<li>Talk with friends</li>
+{% endif %}
+
+{% if level == "High Stress" %}
+<li>Talk with a counselor</li>
+<li>Reduce workload</li>
+<li>Practice deep breathing</li>
+<li>Spend time on hobbies</li>
+<li>Seek professional help if needed</li>
+{% endif %}
+
+</ul>
